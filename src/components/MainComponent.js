@@ -3,7 +3,8 @@ import { Navbar, NavbarBrand } from 'reactstrap';
 import { DISHES } from '../shared/dishes';
 import MenuComponent from './MenuComponent';
 import DishDetail from './DishdetailComponent';
-
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 
  class Main extends Component {
    constructor(props){
@@ -27,14 +28,11 @@ import DishDetail from './DishdetailComponent';
     console.log("You are in onDishDelect",this.state.selectedDish);
     return (
       <div>
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Vive La</NavbarBrand>
-          </div>
-        </Navbar>
+       <Header />
         <MenuComponent dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
         {/* use filter fuction to select the subarray matching the given condition */}
         <DishDetail selectedDish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+        <Footer />
       </div>
     );
   }

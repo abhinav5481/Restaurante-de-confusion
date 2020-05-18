@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardImg , CardImgOverlay ,CardTitle , CardText} from 'reactstrap';
 
 class DishDetail extends Component {
+    componentDidMount(){
+        console.log("DishDetail ComponentDidMount invoked");
+    }
+
+    componentDidUpdate(){
+        console.log("DishDetail ComponentDidUpdate invoked");
+    }
     
     renderDish(dish){
+        console.log("DishDetail render invoked");
         if(dish != null){
              return (
                  <card>
