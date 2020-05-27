@@ -63,11 +63,11 @@ class DishDetail extends Component {
             <div className="container">
             <div className="row">
                 <div className="col-xs-12 col-md-5 m-1">
-            { this.renderDish(this.props.selectedDish) }
+            { this.renderDish(selectedDish) }
             </div>
              <div className="col-xs-12 col-md-5 m-1">
              <h4>Comments</h4>
-            { this.renderComments(this.props.selectedDish) }
+            { this.renderComments(selectedDish) }
             </div> 
             
             </div> 
