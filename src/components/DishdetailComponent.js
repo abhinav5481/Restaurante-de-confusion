@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardImg , CardImgOverlay ,CardTitle , CardText} from 'reactstrap';
+import { Card, CardBody, CardImg , CardImgOverlay ,CardTitle , CardText,Breadcrumb, BreadcrumbItem} from 'reactstrap';
 
 class DishDetail extends Component {
     componentDidMount(){
         console.log("DishDetail ComponentDidMount invoked");
     }
-
     componentDidUpdate(){
         console.log("DishDetail ComponentDidUpdate invoked");
-    }
-    
+    } 
     renderDish(dish){
         console.log("DishDetail render invoked");
         if(dish != null){
@@ -20,7 +18,6 @@ class DishDetail extends Component {
                        <CardText>{dish.description}</CardText>         
                  </card>  
              );}
-        
         else
             return (
                     <div></div>
@@ -42,7 +39,6 @@ class DishDetail extends Component {
                                  -- {comment.author} , {comment.date}
                              </li>
                          </div>
-
                      )
                  }
                  )
