@@ -1,7 +1,4 @@
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
-import { DISHES } from '../shared/dishes';
+//this can be deleted once we have seperated the dishes comments promotions and leaders to seperate files
 
 export const initialState = {
     dishes : DISHES,
