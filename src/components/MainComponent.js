@@ -10,7 +10,7 @@ import Footer from "./FooterComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Menu from "./MenuComponent";
 import { Connect, connect } from "react-redux";
-import { postComment, fetchDishes , fetchComments,fetchPromos} from "../redux/ActionCreators";
+import { postComment, fetchDishes , fetchComments,fetchPromos, fetchLeaders , postFeedback} from "../redux/ActionCreators";
 import {actions} from 'react-redux-form';
 import {CSSTransition , TransitionGroup} from 'react-transition-group';
 
@@ -19,7 +19,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDishes: () => { dispatch(fetchDishes());},
   resetFeedbackForm: () => {dispatch(actions.reset('feedback'))},
   fetchComments: () => { dispatch(fetchComments());},
-  fetchPromos: () => { dispatch(fetchPromos());}
+  fetchPromos: () => { dispatch(fetchPromos());},
+  fetchLeaders: () => { dispatch(fetchLeaders());},
+  postFeedback: (firstname,lastname,telnum,email,agree,contactType,message) => dispatch(postFeedback(firstname,lastname,telnum,email,agree,contactType,message))
 });
 
 const mapStateToProps = (state) => {
@@ -40,6 +42,7 @@ class Main extends Component {
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
+    this.props.fetchLeaders();
   }
 
   //  onDishSelect(dishId)
@@ -53,11 +56,7 @@ class Main extends Component {
   render() {
     const homePage = () => {
       return (
-        //     <Home
-        //     dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-        //     promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-        //     leader={this.state.leaders.filter((leader) => leader.featured)[0]}
-        // />
+        
         <Home 
         dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
         dishesLoading={this.props.dishes.isLoading}
@@ -65,7 +64,9 @@ class Main extends Component {
         promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
         promoLoading={this.props.promotions.isLoading}
         promoErrMess={this.props.promotions.errMess}
-        leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+        leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+        leadersLoading={this.props.leaders.isLoading}
+        leadersErrMess={this.props.leaders.errMess}
     />
       );
     };
@@ -84,9 +85,7 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        {/* <MenuComponent dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} /> */}
-        {/* use filter fuction to select the subarray matching the given condition */}
-        {/* <DishDetail selectedDish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> */}
+      
         <TransitionGroup>
         <CSSTransition  key={this.props.location.key} classNames="page" timeout={300}>
         <Switch>
@@ -99,9 +98,10 @@ class Main extends Component {
           <Route path="/menu/:dishId" component={DishWithId} />
           <Route
             path="/aboutus"
-            component={() => <About leaders={this.props.leaders} />}
+            component={() => <About leaders={this.props.leaders.leaders} leadersLoading={this.props.leaders.isLoading}
+            leadersErrMess={this.props.leaders.errMess} />}
           />
-          <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+          <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
           <Redirect to="/home" />
         </Switch>
         </CSSTransition>

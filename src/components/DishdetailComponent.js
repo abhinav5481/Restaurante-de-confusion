@@ -3,7 +3,6 @@ import {
   Card,
   CardBody,
   CardImg,
-  CardImgOverlay,
   CardTitle,
   CardText,
   Breadcrumb,
@@ -12,16 +11,12 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Form,
-  FormGroup,
-  Input,
   Label,
   Row,
   Col,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { postComment } from "../redux/ActionCreators";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
