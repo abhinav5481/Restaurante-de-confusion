@@ -24,6 +24,7 @@ import { Control, LocalForm, Errors } from "react-redux-form";
 import { postComment } from "../redux/ActionCreators";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => !val || val.length >= len;
@@ -31,13 +32,19 @@ const minLength = (len) => (val) => !val || val.length >= len;
 function RenderDish({ dish }) {
   if (dish != null) {
     return (
-      <Card>
-        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                  <Card>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                      <CardTitle>{dish.name}</CardTitle>
+                      <CardText>{dish.description}</CardText>
+                    </CardBody>
+                  </Card>
+      </FadeTransform>
     );
   } else {
     return <div></div>;
@@ -51,8 +58,10 @@ function RenderComments({ comments, postComment, dishId }) {
     return (
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
+        <Stagger in>
         {comments.map((comment) => {
           return (
+            <Fade in>
             <div key={comment.id} className="list-unstyled">
               <li>
                 {comment.comment}
@@ -61,8 +70,10 @@ function RenderComments({ comments, postComment, dishId }) {
               </li>
               <br />
             </div>
+            </Fade>
           );
         })}
+        </Stagger>
         <CommentForm postComment={postComment} dishId={dishId} />
       </div>
     );

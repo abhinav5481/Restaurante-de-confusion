@@ -12,6 +12,7 @@ import Menu from "./MenuComponent";
 import { Connect, connect } from "react-redux";
 import { postComment, fetchDishes , fetchComments,fetchPromos} from "../redux/ActionCreators";
 import {actions} from 'react-redux-form';
+import {CSSTransition , TransitionGroup} from 'react-transition-group';
 
 const mapDispatchToProps = (dispatch) => ({
   postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
@@ -86,6 +87,8 @@ class Main extends Component {
         {/* <MenuComponent dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} /> */}
         {/* use filter fuction to select the subarray matching the given condition */}
         {/* <DishDetail selectedDish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> */}
+        <TransitionGroup>
+        <CSSTransition  key={this.props.location.key} classNames="page" timeout={300}>
         <Switch>
           <Route path="/home" component={homePage} />
           <Route
@@ -101,6 +104,8 @@ class Main extends Component {
           <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
           <Redirect to="/home" />
         </Switch>
+        </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );
