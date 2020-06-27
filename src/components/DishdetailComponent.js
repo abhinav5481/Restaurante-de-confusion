@@ -21,7 +21,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { addComment } from "../redux/ActionCreators";
+import { postComment } from "../redux/ActionCreators";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from '../shared/baseUrl';
 
@@ -44,7 +44,7 @@ function RenderDish({ dish }) {
   }
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
   if (comments != null) {
     console.log("insideRenderComments");
 
@@ -63,7 +63,7 @@ function RenderComments({ comments, addComment, dishId }) {
             </div>
           );
         })}
-        <CommentForm addComment={addComment} dishId={dishId} />
+        <CommentForm postComment={postComment} dishId={dishId} />
       </div>
     );
   } else {
@@ -87,7 +87,7 @@ class CommentForm extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(
+    this.props.postComment(
       this.props.dishId,
       values.rating,
       values.author,
@@ -216,7 +216,7 @@ class DishDetail extends Component {
 
             <RenderComments
               comments={this.props.comments}
-              addComment={this.props.addComment}
+              postComment={this.props.postComment}
               dishId={this.props.dish.id}
             />
           </div>
